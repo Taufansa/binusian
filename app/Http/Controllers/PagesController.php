@@ -49,9 +49,22 @@ class PagesController extends Controller
 
     public function clearAll(Request $request){
         $binusian_id = $request->session()->get('binusian_id');
+        //count record
+        $total = Transaction::where('binusian_id','=',$binusian_id)->count();
+        //take shift id
+        $shift = Transaction::where('binusian_id','=',$binusian_id)->limit(1)->orderBy('created_at','ASC')->first();
+        $shift_id = $shift->shift_id;
+        //take quota shift
+        $getQuota = Shift::where('shift_id','=',$shift_id)->first();
+        $quota = $getQuota->quota;
+        //sum quota shift
+        $totalQuota = $quota + $total;
+        //update quota 
+        $updateQuota = Shift::where('shift_id','=',$shift_id)->update(['quota' => $totalQuota]);
+        //delete record
         $status = Transaction::where('binusian_id','=',$binusian_id)->delete();
         if ($status > 0) {
-            Alert::warning('Clear Data Success','If You Want to Register Again, Fill the Form Again');
+            Alert::success('Clear Data Success','If You Want to Register Again, Fill the Form Again');
             return back();
         } else {
             Alert::Failed('Clear Data Failed','Please Contact the Administator');
@@ -80,6 +93,7 @@ class PagesController extends Controller
         if ($request->session()->has('binusian_id')) {
             $binusian_id = $request->session()->get('binusian_id');
             $data = Karyawan::where('binusian_id',$binusian_id)->first();
+            //filter work location
             if (($data->lokasi_kerja == 'SS') || ($data->lokasi_kerja == 'KA') || ($data->lokasi_kerja == 'KJ')) {
                 $children = Anak::where('binusian_id',$binusian_id)->orderBy('anak_ke','ASC')->get();
                 $shifts = Shift::all();
@@ -178,34 +192,49 @@ class PagesController extends Controller
         $watch = Batch::where('batch_id','01')->first();
         $start_date = $watch->start_date;
         $end_date = $watch->end_date;
-        // filter fill form session
-        if (($time >= $start_date) && ($time <= $end_date)) {
-            for ($i=0; $i < $count; $i++) { 
-                //delete data, before insert data in transaction registration
-                Transaction::where('binusian_id','=',$binusian_id)->where('anak_ke','=',$childs[$i])->delete();
-                $data = Transaction::create([
-                    'binusian_id' => $binusian_id,
-                    'shift_id' => $shift_id,
-                    'anak_ke' => $childs[$i],
-                    'created_at' => $time,
-                    'updated_at' => null
-                ]);
-                if ($data) {
-                    $status = $status . $i;
+
+        //take quota 
+        $quantity = Shift::where('shift_id','=',$shift_id)->first();
+        $quota = $quantity->quota;
+        
+        //check quota
+        if ($quota >= $count) {
+            // filter fill form sessios
+            if (($time >= $start_date) && ($time <= $end_date)) {
+                for ($i=0; $i < $count; $i++) { 
+                    //delete data, before insert data in transaction registration
+                    Transaction::where('binusian_id','=',$binusian_id)->where('anak_ke','=',$childs[$i])->delete();
+                    $data = Transaction::create([
+                        'binusian_id' => $binusian_id,
+                        'shift_id' => $shift_id,
+                        'anak_ke' => $childs[$i],
+                        'created_at' => $time,
+                        'updated_at' => null
+                    ]);
+                    $minus = Shift::where('shift_id','=',$shift_id)->first();
+                    $quotaMinus = $minus->quota - 1;
+                    $decreament = Shift::where('shift_id','=',$shift_id)->update(['quota' => $quotaMinus]);
+                    if ($data) {
+                        $status = $status . $i;
+                    }
                 }
-            }
-            $count2 = strlen($status);
-            if ($count == $count2) {
-                Alert::success('Registration Success','Your Registration Success');
-                return redirect('/dashboard/registered');
+                $count2 = strlen($status);
+                if ($count == $count2) {
+                    Alert::success('Registration Success','Your Registration Success');
+                    return redirect('/dashboard/registered');
+                } else {
+                    Alert::warning('Registration Failed','Something Wrong, Please Contact Admin');
+                    return back();
+                }
             } else {
-                Alert::warning('Registration Failed','Something Wrong, Please Contact Admin');
+                Alert::warning('Registration Failed','Your Registration Out of Registration Session Date');
                 return back();
             }
         } else {
-            Alert::warning('Registration Failed','Your Resgistration Out of Registration Session Date');
+            Alert::warning('Out of Quota','Please Choose Another Shift');
             return back();
         }
+        
     }
 
     /**
@@ -257,32 +286,46 @@ class PagesController extends Controller
         $watch = Batch::where('batch_id','01')->first();
         $start_date = $watch->start_date;
         $end_date = $watch->end_date;
-        // filter fill form session
-        if (($time >= $start_date) && ($time <= $end_date)) {
-            for ($i=0; $i < $count; $i++) { 
-                //delete data, before insert data in transaction registration
-                Transaction::where('binusian_id','=',$binusian_id)->where('anak_ke','=',$childs[$i])->delete();
-                $data = Transaction::create([
-                    'binusian_id' => $binusian_id,
-                    'shift_id' => $shift_id,
-                    'anak_ke' => $childs[$i],
-                    'created_at' => $time,
-                    'updated_at' => null
-                ]);
-                if ($data) {
-                    $status = $status . $i;
+
+        //take quota 
+        $quantity = Shift::where('shift_id','=',$shift_id)->first();
+        $quota = $quantity->quota;
+        
+        //check quota
+        if ($quota >= $count) {
+            // filter fill form sessios
+            if (($time >= $start_date) && ($time <= $end_date)) {
+                for ($i=0; $i < $count; $i++) { 
+                    //delete data, before insert data in transaction registration
+                    Transaction::where('binusian_id','=',$binusian_id)->where('anak_ke','=',$childs[$i])->delete();
+                    $data = Transaction::create([
+                        'binusian_id' => $binusian_id,
+                        'shift_id' => $shift_id,
+                        'anak_ke' => $childs[$i],
+                        'created_at' => $time,
+                        'updated_at' => null
+                    ]);
+                    $minus = Shift::where('shift_id','=',$shift_id)->first();
+                    $quotaMinus = $minus->quota - 1;
+                    $decreament = Shift::where('shift_id','=',$shift_id)->update(['quota' => $quotaMinus]);
+                    if ($data) {
+                        $status = $status . $i;
+                    }
                 }
-            }
-            $count2 = strlen($status);
-            if ($count == $count2) {
-                Alert::success('Update Success','Your Update Success');
-                return redirect('/dashboard/registered');
+                $count2 = strlen($status);
+                if ($count == $count2) {
+                    Alert::success('Registration Success','Your Registration Success');
+                    return redirect('/dashboard/registered');
+                } else {
+                    Alert::warning('Registration Failed','Something Wrong, Please Contact Admin');
+                    return back();
+                }
             } else {
-                Alert::warning('Update Failed','Something Wrong, Please Contact Administrator');
+                Alert::warning('Registration Failed','Your Registration Out of Registration Session Date');
                 return back();
             }
         } else {
-            Alert::warning('Update Failed','Your Update Out of Registration Session Date');
+            Alert::warning('Out of Quota','Please Choose Another Shift');
             return back();
         }
     }

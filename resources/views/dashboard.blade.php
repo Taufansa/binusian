@@ -70,34 +70,22 @@
             @endforeach
             <br>
             <label for="">I choose shift:</label>
-            @foreach ($shifts as $shift)
-            @if ($shift->shift_id == $first->shift_id)
-              @php
-                $counted = $shift->quota - $count;
-              @endphp
-              @if ($counted < $shift->quota)
+            @foreach ($shifts as $shift)            
+              @if ($shift->quota > 0)
                 <div class="form-check">
                     <input class="form-check-input" name ="shift_id" type="radio" value="{{$shift->shift_id}}" id="shift" required>
                     <label class="form-check-label" for="shift">
-                        {{$shift->shift_info}} - {{$shift->quota - $count}} Slot(s) Available.
+                        {{$shift->shift_info}} - {{$shift->quota}} Slot(s) Available.
                     </label>
                 </div>
               @else
                 <div class="form-check">
                     <input class="form-check-input" name ="shift_id" type="radio" value="{{$shift->shift_id}}" id="shift" disabled>
                     <label class="form-check-label" for="shift">
-                        {{$shift->shift_info}} - {{$shift->quota - $count}} Slot(s) Available.
+                        {{$shift->shift_info}} - 0 Slot(s) Available.
                     </label>
                 </div>
               @endif
-            @else
-            <div class="form-check">
-                <input class="form-check-input" name ="shift_id" type="radio" value="{{$shift->shift_id}}" id="shift" required>
-                <label class="form-check-label" for="shift">
-                    {{$shift->shift_info}} - {{$shift->quota}} Slot(s) Available.
-                </label>
-            </div>
-            @endif
             @endforeach
             <div class="btn-group">
             <button type="submit" class="btn btn-info btn-sm mt-3">Update</button>
@@ -131,12 +119,21 @@
             <br>
             <label for="">I choose shift:</label>
             @foreach ($shifts as $shift)
-            <div class="form-check">
-                <input class="form-check-input" name ="shift_id" type="radio" value="{{$shift->shift_id}}" id="shift" required>
-                <label class="form-check-label" for="shift">
-                    {{$shift->shift_info}} - {{$shift->quota}} Slot(s) Available.
-                </label>
-            </div>
+            @if ($shift->quota > 0)
+              <div class="form-check">
+                  <input class="form-check-input" name ="shift_id" type="radio" value="{{$shift->shift_id}}" id="shift" required>
+                  <label class="form-check-label" for="shift">
+                      {{$shift->shift_info}} - {{$shift->quota}} Slot(s) Available.
+                  </label>
+              </div>
+            @else 
+              <div class="form-check">
+                  <input class="form-check-input" name ="shift_id" type="radio" value="{{$shift->shift_id}}" id="shift" disabled>
+                  <label class="form-check-label" for="shift">
+                      {{$shift->shift_info}} - 0 Slot(s) Available.
+                  </label>
+              </div>
+            @endif
             @endforeach
             <button type="submit" class="btn btn-primary btn-sm mt-3">Register</button>
         </div>
