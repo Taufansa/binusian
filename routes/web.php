@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/','PagesController@index');
-Route::get('/regist','PagesController@regist');
-Route::post('/regist/create','PagesController@createUser');
+//Route::get('/regist','PagesController@regist');
+//Route::post('/regist/create','PagesController@createUser');
 Route::post('/loginmodal', 'PagesController@loginModal');
 Route::post('/logout','PagesController@logout');
 Route::get('/registerChild','PagesController@store');

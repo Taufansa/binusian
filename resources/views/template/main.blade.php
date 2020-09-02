@@ -10,7 +10,7 @@
 
     <title>@yield('title')</title>
   </head>
-  <body>
+  <body style="background-color: #dbd7d7;">
     @yield('container')
 
     <!-- Optional JavaScript -->

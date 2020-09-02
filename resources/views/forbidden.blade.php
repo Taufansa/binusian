@@ -5,7 +5,7 @@
 @section('container')
 
 <!-- navbar -->
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" style="border-bottom: 5px solid black; border-width: thin;">
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark" style="border-bottom: 5px solid black; border-width: thin;">
   <a class="navbar-brand" href="">Binusian</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
     </ul>
     <form action="/logout" method="post">
         @csrf
-        <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+        <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
     </form>
   </div>
 </nav>
@@ -27,8 +27,8 @@
 <br>
 <div class="container-sm mt-5 mb-5">
 
-<div class="card text-center">
-  <div class="card-header">
+<div class="card text-center" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+  <div class="card-header" >
     Warning
   </div>
   <div class="card-body">
