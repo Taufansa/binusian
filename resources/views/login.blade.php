@@ -14,6 +14,9 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
+        <a class="nav-link" href="#news" data-toggle="tooltip" data-placement="bottom" title="Taufan Samudra Akbar">News</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="#developer" data-toggle="tooltip" data-placement="bottom" title="Taufan Samudra Akbar">Developer</a>
       </li>
       <li class="nav-item dropdown">
@@ -41,21 +44,21 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://i.ibb.co/qDRMQZ7/binus-university-4-ad09a4070bd9b732995e73c57d2ebbeb-600x400.jpg" class="d-block w-100" height="575"  alt="Binus Jakarta">
+      <img src="/img/binus-jakarta.jpg" class="d-block w-100" height="575"  alt="Binus Jakarta">
       <div class="carousel-caption d-none d-md-block">
         <h5>BINUS Jakarta</h5>
         <p>Jl. Raya Kb. Jeruk No.27, RT.2/RW.9, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11530</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://i.ibb.co/7krvyHM/binus-bandung.jpg" class="d-block w-100" height="575" alt="Binus Bandung">
+      <img src="/img/binus-bandung.jpg" class="d-block w-100" height="575" alt="Binus Bandung">
       <div class="carousel-caption d-none d-md-block">
         <h5>BINUS Bandung</h5>
         <p>Jalan Pasir Kaliki No.25-27, Kebon Jeruk, Andir, Kb. Jeruk, Kec. Andir, Kota Bandung, Jawa Barat 40181</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://i.ibb.co/V9n45Xx/binus-malang.jpg" class="d-block w-100" height="575" alt="Binus Malang">
+      <img src="/img/binus-malang.jpg" class="d-block w-100" height="575" alt="Binus Malang">
       <div class="carousel-caption d-none d-md-block">
         <h5>BINUS Malang</h5>
         <p>Araya Mansion No. 8 - 22, Genitri, Tirtomoyo, Kec. Pakis, Malang, Jawa Timur 65154</p>
@@ -108,6 +111,47 @@
     </div>
   </div>
 </div>
+<br>
+<br id="news">
+<br>
+<br>
+<div class="container mb-5"  style = "border-style: ridge; border-width:thin; border-color: grey; border-radius: 10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); background-color: #f0ebeb;">
+  <h1 class="text-center mt-5"><b>Latest News</b></h1>
+  <div class="card-deck  mt-5 mr-5 ml-5 mb-5 ">
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+      <img src="/img/vaksin.jpg" class="card-img-top" height="200" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"><b>Binusian Flu Vaccine</b></h5>
+        <p class="card-text">Due the pandemic, we care about the health of our employees. BINUS provides Flu Vaccines for BINUS employees and employee's families. </p>
+      </div>
+      <div class="card-footer">
+        <a href="#vaccine" class="btn btn-primary btn-sm">Read More</a>
+      </div>
+    </div>
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+      <img src="/img/online_learning.jpg" class="card-img-top" height="200" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"><b>Online Learning at BINUS</b></h5>
+        <p class="card-text">BINUS conducts learning activities using online learning methods via B-Learning.</p>
+      </div>
+      <div class="card-footer">
+        <a href="#learning" class="btn btn-primary btn-sm">Read More</a>
+      </div>
+    </div>
+    <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+      <img src="/img/healty.jpg" class="card-img-top" height="200" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"><b>Healty Protocol</b></h5>
+        <p class="card-text">As government advice, BINUS do the COVID-19 protocol in all campus environments. BINUS supports the government to fight COVID-19</p>
+      </div>
+      <div class="card-footer">
+        <a href="#healty" class="btn btn-primary btn-sm">Read More</a>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
 <br id="developer">
 <br>
 <br>
